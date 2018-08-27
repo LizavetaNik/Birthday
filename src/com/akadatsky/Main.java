@@ -49,13 +49,14 @@ public class Main {
         }
 
         //вторая часть - по дате вернуть список имен
-        String urlSecond = getADate();
+        String urlSecond = "1987-01-01"; //getADate();
 
         try {
             UserDao userDao = new UserDao();
 
-            List<BirthdayUser> users = userDao.getNameByBirthdayUserId(urlSecond);
-            System.out.println("В дату" + urlSecond + "родились: " + users);
+            //List<BirthdayUser> users = userDao.getNameByBirthdayUserId(urlSecond);
+            List<BirthdayUser> users = userDao.getALL();
+            System.out.println("В дату " + urlSecond + " родились: " + users);
         } catch (SQLException e) {
             e.printStackTrace();
         }

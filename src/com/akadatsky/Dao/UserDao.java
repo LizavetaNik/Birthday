@@ -23,7 +23,7 @@ public class UserDao {
     }
 
     public UserDao() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "Liza", "123");
+        connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/newmy", "Liza", "123");
         //maybeCreateUsersTable();
     }
 
@@ -66,14 +66,29 @@ public class UserDao {
     public List<BirthdayUser> getNameByBirthdayUserId(String dataBirthday) throws SQLException {
         List<BirthdayUser> names = new ArrayList<>();
         try (Statement statement = connection.createStatement()) {
-            String request = String.format("SELECT * FROM birthday WHERE birthday.databirthday = '%s';", dataBirthday);
+            String request = String.format("SELECT * FROM tablemy WHERE datemy = '%s';", dataBirthday);
             ResultSet resultSet = statement.executeQuery(request);
             while (resultSet.next()) {
                 String id = resultSet.getString("id");
-                String nameUser = resultSet.getString("nameUser");
-                String data = resultSet.getString("dataBirthday");
+                String nameUser = resultSet.getString("fio");
+                String data = resultSet.getString("datamy");
                 names.add(new BirthdayUser(dataBirthday, nameUser, id));
             }
+        }
+        return names;
+    }
+
+    public List<BirthdayUser> getALL() throws SQLException {
+        List<BirthdayUser> names = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            String request = String.format("SELECT * FROM tablemy;");
+            ResultSet resultSet = statement.executeQuery(request);
+//            while (resultSet.next()) {
+//                String id = resultSet.getString("id");
+//                String nameUser = resultSet.getString("fio");
+//                String data = resultSet.getString("datamy");
+//                names.add(new BirthdayUser(dataBirthday, nameUser, id));
+//            }
         }
         return names;
     }
